@@ -1,0 +1,15 @@
+select * from Customer where (city='Pune' or city='Mumbai') and (cust_fname like 'P%' or cust_fname like 'H%');
+
+select distinct(city) from Customer;
+
+update book set unit_price=1.05*unit_price where pub_year=2015;
+
+select author_name from author where country = 'India' union select author_name from author where country='UK';
+
+select * from book where unit_price = (select max(unit_price) from book);
+
+select title from book where unit_price between 200 and 800;
+
+select title,author_no,publisher_no from book where pub_year in (2009,2010,2015);
+
+delete from Customer where city='Pune';

@@ -1,0 +1,14 @@
+CREATE TABLE STUDENT(
+    -> ROLLNO INT NOT NULL,
+    -> NAME VARCHAR(25) NOT NULL,
+    -> DOADM DATE,
+    -> BRANCH VARCHAR(5),
+    -> PERCENT INT,
+    -> STATUS VARCHAR(5)
+    -> );
+
+CREATE TABLE ALUMNI( NAME VARCHAR(25) NOT NULL, DOADM DATE, BRANCH VARCHAR(5), PERCENT INT, STATUS VARCHAR(5) );
+
+create trigger t1 after delete on STUDENT for each row insert into ALUMNI values(OLD.NAME, OLD.DOADM,OLD.BRANCH,OLD.PERCENT,"PASS OUT");
+
+create trigger t2 after update on STUDENT for each row insert into ALUMNI values(OLD.NAME, OLD.DOADM,OLD.BRANCH,OLD.PERCENT,"PASS OUT");

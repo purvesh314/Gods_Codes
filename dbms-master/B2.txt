@@ -1,0 +1,15 @@
+use dbms
+
+db.createCollection("b2")
+
+db.b2.drop()
+
+db.student.insertOne({"Name":"Pratik","Roll no":3456,"Dept":"Comp"})
+
+db.student.insert([{"Name":"Tanvi","Roll no":3459,"Dept":"Comp"},{"Name":"Dhwani","Roll no":3458,"Dept":"Comp"}])
+
+db.student.find()
+
+db.student.update({"Roll no":3459},{$set:{"Name":"Tanvi Shah"}})
+
+db.student.remove({"Name":"Mayur"})

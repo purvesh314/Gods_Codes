@@ -1,0 +1,58 @@
+import java.sql.*;
+import java.util.*;
+
+public class Code{
+    void main(){
+        Connection con = null;
+        Statement stmt = null;
+        
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            
+            con = DriverManager.getConnection(url,user,password);   
+            
+            # url is jdbc:mysql://10.10.15.202:3306/te3415db
+            
+            stmt = con.createStatement();
+            
+            sql = 'create view simple_view as select cust_fname from Customer';
+            
+            int status = stmt.executeUpdate(sql);
+            
+            sql = 'select * from simple_view';
+            
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            while(rs.next()){
+                printf(rs.getInt(1)+rs.getString(2)+rs.getString(3));
+            }
+            
+            int status = stmt.executeUpdate('drop view simple_view');   # Similarly for update view
+            
+            sql = 'create unique index dept_name on Department(dept_name)'
+            executeUpdate(sql)
+            
+            sql='show index from Department'
+            rs
+            rs.getString(1),rs.getString(2)
+            
+            sql='select * from Department use index(dept_name'
+            rs
+            
+            sql='drop index dept_name on Department'
+            status
+            
+            sql = 'create index profname on Professor(prof_fname,prof_lname)    # Compound index
+            status
+            
+            Similarly show index,select * and drop
+            
+            sql='create table'  (use auto increment to denote sequence) status
+            sql='insert into table values'  status
+            sql = select * from table   rs
+            
+            con.close();
+            }catch(Exception e){printf(e);}
+            
+       }
+}

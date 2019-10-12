@@ -1,0 +1,10 @@
+db.posts.insertMany([{"Text":"Pict rocks","user":"Pratik","status":"active"},{"Text":"Pict sucks","user":"Mayur","status":"active"},{"Text":"Coep rocks","user":"Pratik","status":"active"},{"Text":"Clg sucks","user":"Dhwani","status":"inactive"}])
+
+db.posts.mapReduce(
+... function() { emit(this.user,1);},       # Returns key value
+... function(key,values) { return Array.sum(values)},{      # Reduce function
+... query:{status:"active"},
+... out:"post_total"                # You can also add limit and size
+... }
+... )   # Adding .find() over here will print the results
+

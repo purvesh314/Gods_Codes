@@ -1,0 +1,7 @@
+db.student.ensureIndex({"Name":1})
+
+db.student.ensureIndex({"Name":1,"Score":-1})   # Descending order for score
+
+db.student.aggregate([{$group:{_id:"$Dept","Total marks":{$sum:"$Score"}}}])    # Replace sum with avg, min, max
+
+db.student.aggregate([{$group:{_id:"$Dept","Total students":{$sum:1}}}]) #Increment 1 for each instance of the dept

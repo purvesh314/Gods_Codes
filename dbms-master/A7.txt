@@ -1,0 +1,33 @@
+create table customer (cust_id int not null, name varchar(25) not null, total_purchase int default 0, primary key(cust_id));
+create table category (cust_id int not null, name varchar(25) not null, class varchar(25), primary key(cust_id));
+
+delimiter $$
+mysql>create procedure proc_grade()
+    -> begin
+    -> declare name varchar(30);
+    -> declare b int default 0;
+    -> declare id int;
+    -> declare total int;
+    -> declare cursor_c1 cursor for select * from customer;
+    -> declare continue handler for not found set b=1;
+    -> open cursor_c1;
+    -> repeat
+    -> fetch cursor_c1 into id,name,total;
+    -> if not b then
+    -> if total>=10000 and total<=20000 then
+    -> insert into category values(id,name,'Platinum');
+    -> end if;
+    -> if total>=5000 and total<=9999 then
+    -> insert into category values(id,name,'Gold');
+    -> end if;
+    -> if total>=2000 and total<=4999 then
+    -> insert into category values(id,name,'Silver');
+    -> end if;
+    -> end if;
+    -> until b end repeat;
+    -> end;
+    -> $$
+
+delimiter ;
+call proc_grade();
+

@@ -1,0 +1,27 @@
+select cust_fname,cust_lname,cust_phone,ISBN,qty from Customer natural join orders;
+
+select title,author_name,country from book inner join author on book.author_no=author.author_no;
+
+select Customer.cust_no,cust_fname,cust_lname from Customer left join orders on (Customer.cust_no = orders.cust_no) where orders.order_no is null;      # To find customers without any order
+
+select title,book.ISBN,order_no from book left join orders on (book.ISBN=orders.ISBN) where orders.ISBN is null;
+
+select c.cust_fname,o.order_no,b.title,b.author_no,b.pub_year from orders o inner join Customer c on o.cust_no=c.cust_no inner join book b on o.ISBN=b.ISBN and b.ISBN=3;   # Join over more than 2 tables
+
+select Customer.cust_fname,Customer.cust_no,count(orders.qty) from Customer inner join orders on Customer.cust_no=orders.cust_no group by Customer.cust_fname ;
+
+select Customer.cust_no,orders.order_no,orders.ISBN from Customer,orders where Customer.cust_no=orders.cust_no and orders.ISBN = (select ISBN from book where title='Shiva');
+
+select cust_company from Customer,orders where orders.cust_no=Customer.cust_no and orders.odate between '2018-01-01' and '2018-12-31';
+
+create view complex_view as select author.author_no,author.author_name,book.title from author left join book on author.author_no=book.author_no ;   # Complex view
+
+create view simple_view as select cust_no,cust_fname,cust_lname from Customer;
+
+insert into simple_view values (10,'Dhananjay','Kamble');   # Changes reflected in main table as well
+
+delete from simple_view where cust_no=10;   # Changes reflected in main table as well
+    
+update simple_view set cust_lname='Shaha' where cust_fname='Hanvi'; # Changes reflected in main table as well
+
+drop view simple_view;

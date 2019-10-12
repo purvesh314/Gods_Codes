@@ -1,0 +1,36 @@
+create table old ( id number(2) not null, name varchar2(25) not null);
+create table new ( id number(2) not null, name varchar2(25) not null);
+
+insert into old (id, name) values (1,'Pratik');
+insert into old (id, name) values (2,'Dhwani');
+insert into old (id, name) values (3,'Shahrukh');
+insert into old (id, name) values (4,'Tanvi');
+
+insert into new(id, name) values (1,'Pratik');
+insert into new(id, name) values (3,'Shahrukh');
+
+declare
+newcid int;
+newname varchar2(25);
+oldcid int;
+oldname varchar2(25);
+cursor newcursor(n int) is select * from new where id=n;
+cursor oldcursor is select * from old;
+begin
+open oldcursor;
+loop
+fetch oldcursor into newcid, newname;
+exit when oldcursor%notfound;
+open newcursor(newcid);
+fetch newcursor into oldcid, oldname;
+if newcursor%notfound then
+insert into new values(newcid,newname);
+end if;
+close newcursor;
+end loop;
+close oldcursor;
+end;
+/
+
+select * from old;
+select * from new;
